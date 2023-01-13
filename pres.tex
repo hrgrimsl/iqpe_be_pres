@@ -1,0 +1,32 @@
+\documentclass[aspectratio=169]{beamer}
+\setbeamertemplate{navigation symbols}{}
+
+%Compile with !pdflatex % and !biber slides
+\usepackage[backend=biber,style=chem-acs]{biblatex}
+\addbibresource{toronto.bib}
+\AtBeginEnvironment{frame}{\setcounter{footnote}{0}}
+\setbeamertemplate{footline}[frame number]
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{braket}
+\usepackage{verbatim}
+
+\renewcommand\multicitedelim{\addsemicolon\space}
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+\title{Novel, VQE-Inspired Algorithms}
+\author{Harper Grimsley}
+\institute{Mayhall Group, Virginia Tech}
+\date{December 2, 2022}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\end{document}
