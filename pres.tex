@@ -3,7 +3,7 @@
 
 %Compile with !pdflatex % and !biber slides
 \usepackage[backend=biber,style=chem-acs]{biblatex}
-\addbibresource{toronto.bib}
+\addbibresource{pres.bib}
 \AtBeginEnvironment{frame}{\setcounter{footnote}{0}}
 \setbeamertemplate{footline}[frame number]
 
@@ -20,13 +20,50 @@
   \endgroup
 }
 
-\title{Novel, VQE-Inspired Algorithms}
+\title{Introduction to a Couple of Algorithms}
 \author{Harper Grimsley}
-\institute{Mayhall Group, Virginia Tech}
-\date{December 2, 2022}
+%\institute{Mayhall Group, Virginia Tech}
+\date{TBD}
 
 \begin{document}
 
 \frame{\titlepage}
+
+\begin{frame}
+	\frametitle{Why Quantum Chemistry is Hard}
+	\begin{itemize}[<+->]
+		\item Schr{\"o}dinger says to solve:
+			\begin{equation}\nonumber
+			\mathcal{H}\ket{\Psi} = E\ket{\Psi}
+			\end{equation}
+		\item $\ket{\Psi}$ includes exponentially many configurations- exponential memory to store $\ket{\Psi}$
+		\item Dimension of $\mathcal{H}$ scales exponentially- diagonalizing it requires exponential time
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Quantum Computers and Storage}
+	\begin{itemize}[<+->]
+		\item Quantum registers of $N$ qubits exist in linear combinations of $2^N$ configurations
+		\item Jordan-Wigner maps all configurations of $N$ spinorbitals to $N$ qubits
+		\item E.g. H$_2$ in minimal basis:
+			\begin{equation}\nonumber
+				c_0\ket{\phi_0} + c_{0\bar{0}}^{1\bar{1}}\ket{\phi_{0\bar{0}}^{1\bar{1}}}\rightarrow c_{\uparrow\uparrow\downarrow\downarrow}\ket{\uparrow\uparrow\downarrow\downarrow}+c_{\downarrow\downarrow\uparrow\uparrow}\ket{\downarrow\downarrow\uparrow\uparrow}
+			\end{equation}
+		\item This is just a 4-electron spin state: one for each spinorbital
+	        \item Number of qubits scales linearly with system size!
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Quantum Phase Estimation}
+	\begin{itemize}[<+->]
+		\item We can (maybe) get $E$ in polynomial time with QPE\footfullcite{abrams_quantum_1999}
+        \end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Block Encoding}
+\end{frame}
 
 \end{document}
