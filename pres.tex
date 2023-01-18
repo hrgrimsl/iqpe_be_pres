@@ -78,8 +78,8 @@
 	\begin{itemize}[<+->]
 	\item Time evolution operator is $e^{-i\mathcal{H}t}$
 	\item How can we simulate this without Trotterization?
-	\item One strategy is to construct a polynomial approximation to this exponential
-	\item Jacobi-Anger Expansion:
+	\item One strategy is to approximate this function of $\mathcal{H}$
+	\item Jacobi-Anger expansion:
 	\begin{equation}\nonumber
 		e^{-i\lambda t} = \sum_{n=-\infty}^{\infty}i^n J_n(z) e^{in\arccos(\lambda)}
 	\end{equation}
@@ -112,14 +112,46 @@
 \begin{frame}
 	\frametitle{Constructing $\hat{U}$: Linear Combination of Unitaries\footfullcite{childs_hamiltonian_2012}}
 	\begin{itemize}[<+->]
-		\item 
+		\item Every Hamiltonian can be written as a linear combination of d unitaries:
+		\begin{equation}\nonumber
+		\mathcal{H} = \sum_{j=1}^d \alpha_j \hat{U}_j
+		\end{equation}
+		\item It can be shown that we can always use:
+		\begin{align}
+			\nonumber \ket{G} &= \sum_{j=1}^d\sqrt{\alpha_j/||\boldsymbol{\alpha}||_1}\ket{j}_a\\
+			\nonumber \hat{U} &= \sum_{j=1}^d\ket{j}\bra{j}_a\otimes\hat{U}_j
+		\end{align}
+		\item This gives 
+		\begin{equation}
+			\mathcal{H} = ||\boldsymbol{\alpha}||_1(\bra{G}_a\otimes \mathbf{I}_s)\hat{U}(\ket{G}_a\otimes\mathbf{I})
+		\end{equation}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Simple Example of Block-Encoding Using LCUs}
+	\begin{itemize}[<+->]
+	\item Consider a special case of the 2-qubit Heisenberg Hamiltonian:
+	\begin{equation}\nonumber
+		\mathcal{H} = \hat{X}\hat{X}+\hat{Z}\hat{Z}
+	\end{equation}
+	\item This is already a sum of unitaries, so we choose
+	\begin{align}
+	\nonumber \ket{G} &= \frac{1}{\sqrt{2}}(\ket{0}+\ket{1})\equiv{\ket{+}}\\
+	\nonumber \hat{U} &= \ket{0}\bra{0}\hat{X}\hat{X}+\ket{1}\bra{1}\hat{Z}\hat{Z}
+	\end{align}
+	\item With some algebra, we get
+	\begin{equation} \nonumber
+		\hat{U}\ket{G}\ket{\psi}_s = \frac{1}{2}\ket{+}\mathcal{H}\ket{\psi}_s + \frac{1}{2}\ket{-}(\hat{X}\hat{X}-\hat{Z}\hat{Z})\ket{\psi}_s
+	\end{equation}
+	\item We just measure the first qubit in the $\ket{+}/\ket{-}$ basis, and when we get $\ket{+}$, we know we have (up to a normalization constant) $\mathcal{H}\ket{\psi}_s$ on the other qubits!
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Qubitization}
-	\begin{itemize}
-	\item Our original goal was to build polynomials of $\mathcal{H}$
+	\begin{itemize}[<+->]
+	\item Our original goal was to build functions of $\mathcal{H}$
 	\item Does $\hat{U}^2$ enact $\mathcal{H}^2$ on the system qubits?
 	\item No- Higher powers of $\hat{U}$ leave the $SU(2)$ subspace: span$\{\ket{G}_\lambda,\hat{U}\ket{G_\lambda}\}$
 	\item We can fix this ``leakage'' by replacing $\hat{U}$ with an \textit{iterate} $\hat{W}$
@@ -131,6 +163,25 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Qubitization Recipe}
+	\begin{itemize}[<+->]
+		\item We know how to get a block-encoded operator $\hat{U}$ and ancilla state $\ket{G}$ with LCUs, but how do we get $\hat{W}$?
+	\item The math is boring, but there is a universal construction of this as well:
+	\begin{align}
+		\nonumber \ket{G'} &= \ket{+}\ket{G}\\
+		\nonumber \hat{W} &= \ket{1}\bra{0}\otimes\hat{U} + \ket{0}\bra{1}\otimes\hat{U}^{\dagger}
+	\end{align}
+	\item Note that this na{\"i}ve approach requires an additional ancilla qubit
+	\end{itemize}
+\end{frame}
 
+\begin{frame}
+	\frametitle{Payoff: Quantum Signal Processing}
+	\begin{itemize}[<+->]
+	\item We originally promised the ability to implement functions of $\hat{H}$- we now have the tools to accomplish this
+	\item 
+	\end{itemize}
+\end{frame}
 
 \end{document}
