@@ -20,7 +20,7 @@
   \endgroup
 }
 
-\title{Introduction to a Couple of Algorithms}
+\title{Introduction to a Couple of Things}
 \author{Harper Grimsley}
 %\institute{Mayhall Group, Virginia Tech}
 \date{TBD}
@@ -56,14 +56,81 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Quantum Phase Estimation}
+	\frametitle{Quantum Phase Estimation\footfullcite{abrams_quantum_1999}}
 	\begin{itemize}[<+->]
-		\item We can (maybe) get $E$ in polynomial time with QPE\footfullcite{abrams_quantum_1999}
+		\item Reformulate as finding eigenvalue of a unitary
+			\begin{align}\nonumber
+				&\mathcal{H}\ket{\Psi}=E\ket{\Psi}\\\rightarrow &e^{i\mathcal{H}}\ket{\Psi} = e^{iE}\ket{\Psi}\equiv e^{2\pi i\phi}\ket{\Psi}\nonumber
+			\end{align}
+		\item Quantum computer can find $\phi$:
+			\begin{figure}
+				\includegraphics[width=.45\textwidth]{pea_overall.png}%
+				\includegraphics[width=.45\textwidth]{pea_1.png}%
+			\caption{Nielsen and Chuang, 2011}
+			\end{figure}
         \end{itemize}
 \end{frame}
 
+
+
 \begin{frame}
-	\frametitle{Block Encoding}
+	\frametitle{Qubitization and Block Encoding \footfullcite{low_hamiltonian_2019}}
+	\begin{itemize}[<+->]
+	\item Time evolution operator is $e^{-i\mathcal{H}t}$
+	\item How can we simulate this without Trotterization?
+	\item One strategy is to construct a polynomial approximation to this exponential
+	\item Jacobi-Anger Expansion:
+	\begin{equation}\nonumber
+		e^{-i\lambda t} = \sum_{n=-\infty}^{\infty}i^n J_n(z) e^{in\arccos(\lambda)}
+	\end{equation}
+	
+	\end{itemize}
+
 \end{frame}
+
+\begin{frame}
+	\frametitle{Block-Encoding}
+	\begin{itemize}[<+->]
+	\item Quantum computers can only execute unitary operators
+	\item We can cheat by embedding a non-unitary operator in a unitary one
+	\begin{equation}
+	\hat{U} = \begin{pmatrix}\mathcal{H} & * \\ * & *\end{pmatrix}
+	\end{equation}
+	\item For ancilla state $\ket{G}_a$ and system state $\ket{\psi}_s$
+	\begin{align}
+		\nonumber \hat{U}\ket{G}_a\ket{\psi}_s &= \ket{G}_a\mathcal{H}\ket{\psi}_s+\sqrt{1-\braket{\psi|\mathcal{H}^2|\psi}}\ket{G_\psi^{\perp}}_{as}\\
+		\nonumber (\bra{G}_a\otimes \mathbf{I})\ket{G_\psi^{\perp}}_{as}&= 0
+	\end{align}
+	\item Spectral Form:
+		\begin{align}
+		\nonumber\hat{U}\ket{G}\ket{\lambda}&\equiv\hat{U}\ket{G_\lambda}\\
+		\nonumber&=\lambda{G_\lambda}+\sqrt{1-|\lambda|^2}\ket{G_\lambda^{\perp}}
+		\end{align}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Constructing $\hat{U}$: Linear Combination of Unitaries\footfullcite{childs_hamiltonian_2012}}
+	\begin{itemize}[<+->]
+		\item 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Qubitization}
+	\begin{itemize}
+	\item Our original goal was to build polynomials of $\mathcal{H}$
+	\item Does $\hat{U}^2$ enact $\mathcal{H}^2$ on the system qubits?
+	\item No- Higher powers of $\hat{U}$ leave the $SU(2)$ subspace: span$\{\ket{G}_\lambda,\hat{U}\ket{G_\lambda}\}$
+	\item We can fix this ``leakage'' by replacing $\hat{U}$ with an \textit{iterate} $\hat{W}$
+		\begin{align}
+			\nonumber \hat{W}&=\oplus_{\lambda}\begin{pmatrix} \lambda & -\sqrt{1-|\lambda|^2} \\ \sqrt{1-|\lambda|^2} & \lambda\end{pmatrix}_\lambda\\
+		\nonumber &=\oplus e^{-i\hat{Y}_\lambda \arccos(\lambda)}
+		\end{align}
+	\item This is called qubitization because it breaks up the operator into a direct sum of SU(2) unitaries
+	\end{itemize}
+\end{frame}
+
+
 
 \end{document}
