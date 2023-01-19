@@ -78,12 +78,8 @@
 	\begin{itemize}[<+->]
 	\item Time evolution operator is $e^{-i\mathcal{H}t}$
 	\item How can we simulate this without Trotterization?
-	\item One strategy is to approximate this function of $\mathcal{H}$
-	\item Jacobi-Anger expansion:
-	\begin{equation}\nonumber
-		e^{-i\lambda t} = \sum_{n=-\infty}^{\infty}i^n J_n(z) e^{in\arccos(\lambda)}
-	\end{equation}
-	
+	\item One strategy is to approximate this function of $\mathcal{H}$ as a non-unitary polynomial
+	\item Construction of non-unitary operators is also desirable for, e.g., open systems	
 	\end{itemize}
 
 \end{frame}
@@ -179,9 +175,48 @@
 \begin{frame}
 	\frametitle{Payoff: Quantum Signal Processing}
 	\begin{itemize}[<+->]
-	\item We originally promised the ability to implement functions of $\hat{H}$- we now have the tools to accomplish this
-	\item 
+	\item We originally promised the ability to implement functions of $\mathcal{H}$- we now have the tools to accomplish this
+	\item Quantum Signal Processing manipulates $\hat{W}$ to construct a block-encoded function of $\mathcal{H}$:
+	\begin{equation}\nonumber
+	f(\mathcal{H}) = A(\mathcal{H})+iB(\mathcal{H})
+	\end{equation}
+	where $A$ and $B$ are real-valued polynomials.
+	\item We will treat this as a black box
 	\end{itemize}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Application: Time Evolution Operator}
+	\begin{itemize}[<+->]
+	\item Spectral form of Jacobi-Anger Expansion:
+		\begin{equation}\nonumber
+			e^{-i\lambda t} = J_0(t) + 2\sum_{\text{even }k >0}^{\infty}(-1)^{k/2}J_k(t)T_k(\lambda) + 2i\sum_{\text{odd }k >0}^{\infty}(-1)^{(k-1)/2}J_k(t)T_k(\lambda)
+		\end{equation}
+	\item Approximate as $A(\lambda)+iB(\lambda)$ where
+	\begin{align}
+		\nonumber A(\lambda) &=  J_0(t) + 2\sum_{\text{even }k >0}^{Q}(-1)^{k/2}J_k(t)T_k(\lambda)\\
+		\nonumber B(\lambda) &=  2i\sum_{\text{odd }k >0}^{Q}(-1)^{(k-1)/2}J_k(t)T_k(\lambda)
+	\end{align}
+	\item Put all the pieces together:
+		\begin{equation}\nonumber
+			\hat{H}\rightarrow\hat{U}\rightarrow\hat{W}\rightarrow A(\mathcal{H})+iB(\mathcal{H})\approx e^{-i\mathcal{H}t}
+		\end{equation}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Summary of Block-Encoding and Quantum Signal Processing}
+	\begin{itemize}[<+->]
+	\item These tools can be used to construct non-unitary operators for quantum computing
+	\item E.g. approximate non-Trotterized time evolution operator
+	\item Lots of room to do this in a smarter, problem-specific way
+	\item E.g., unitary decompositions of $\mathcal{H}$ are non-unique and require different numbers of ancilla qubits
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+	\huge{Thank you for your attention!}
+\end{center}
+\end{frame}
 \end{document}
