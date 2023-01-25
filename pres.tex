@@ -94,7 +94,7 @@
 \lstick{} & \qw & \ghost{e^{i\mathcal{H}t}}&\qw&\qw &\qw&\qw\\
 \lstick{} & \qw & \ghost{e^{i\mathcal{H}t}}&\qw&\qw &\qw&\qw\\
 \lstick{} & \qw & \ghost{e^{i\mathcal{H}t}}&\qw&\qw &\qw &\qw\inputgroupv{1}{4}{.8em}{.8em}{\ket{\psi_s}}\\
-\lstick{\ket{+}} & \qw &\ctrl{-1} & \qw & \gate{X/Y} & \qw & \meter
+\lstick{\ket{+}} & \qw &\ctrl{-1} & \qw & \gate{H\text{ or }\begin{pmatrix}1&1\\-i&i\end{pmatrix}} & \qw & \meter
 }
 \end{array}
 \]
@@ -123,8 +123,33 @@
 \begin{frame}
 \frametitle{Verified Quantum Phase Estimation\footfullcite{obrien_error_2021}}
 \begin{itemize}[<+->]
-\item 
+\item Unfortunately, implementing the controlled time evolution introduces noise\item In VPE, we introduce a sanity check
+\item If $\ket{\psi_s}$ is defined as $U\ket{0}$, then after the controlled evolution, we $U^\dagger$ should take us back to $\ket{0}$
+\item If we don't measure $\ket{0}$, then the time evolution messed up our state
+\item When we measure in the $X$ and $Y$ bases, we contribute nothing to our estimate of $\sum_{\lambda}|a_\lambda|^2 e^{iE_\lambda t}$ if we failed to verify
+\item This is not post-selection: Our expectation values are averaged by the total number of measurements, not just the successful ones
 \end{itemize} 
+\end{frame}
+
+\begin{frame}
+\frametitle{Why would we even do this?}
+\begin{itemize}[<+->]
+\item Implementing $U^{\dagger}$ makes the circuit much longer
+\item The shot count increases the more noise we have
+\item In theory, however, this gives more accurate estimates of
+\begin{equation}
+g(t) = \sum_{\lambda}|a_\lambda|^2 e^{iE_\lambda t}
+\end{equation}
+\item This gives us better estimates of the eigenvalues of $\mathcal{H}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Lin Lin Paper\footfullcite{lin_heisenberg-limited_2022}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Quantum Eigenvalue Transformation of Unitary Matrices\footfullcite{dong_ground-state_2022}}
 \end{frame}
 
 \begin{frame}
