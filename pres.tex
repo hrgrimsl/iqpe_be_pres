@@ -11,6 +11,7 @@
 \usepackage{amsmath}
 \usepackage{braket}
 \usepackage{verbatim}
+\usepackage{qcircuit}
 
 \renewcommand\multicitedelim{\addsemicolon\space}
 \newcommand\blfootnote[1]{%
@@ -20,7 +21,7 @@
   \endgroup
 }
 
-\title{Introduction to a Couple of Things}
+\title{Some Topics}
 \author{Harper Grimsley}
 %\institute{Mayhall Group, Virginia Tech}
 \date{TBD}
@@ -71,7 +72,60 @@
         \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Vanilla Quantum Phase Estimation}
+\begin{itemize}[<+->]
+\item We have 
+\begin{align}
+\nonumber \mathcal{H} &= \sum_{\lambda}E_\lambda\ket{\lambda}\bra{\lambda}\\
+\nonumber \ket{\psi_s} &= \sum_{\lambda}a_\lambda\ket{\lambda}
+\end{align} 
+\item In the simplest case we want $E_0$
+\item Phase estimation can accomplish this- we'll go over one flavor here
+\end{itemize}
+\end{frame}
 
+\begin{frame}
+\frametitle{Vanilla Quantum Phase Estimation Circuit}
+\[
+\begin{array}{c}
+\Qcircuit @C=1em @R=1.6em {
+\lstick{} & \qw & \multigate{3}{e^{i\mathcal{H}t}} & \qw &\qw &\qw &\qw\\
+\lstick{} & \qw & \ghost{e^{i\mathcal{H}t}}&\qw&\qw &\qw&\qw\\
+\lstick{} & \qw & \ghost{e^{i\mathcal{H}t}}&\qw&\qw &\qw&\qw\\
+\lstick{} & \qw & \ghost{e^{i\mathcal{H}t}}&\qw&\qw &\qw &\qw\inputgroupv{1}{4}{.8em}{.8em}{\ket{\psi_s}}\\
+\lstick{\ket{+}} & \qw &\ctrl{-1} & \qw & \gate{X/Y} & \qw & \meter
+}
+\end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{What?}
+\begin{enumerate}[<+->]
+\item Start with 
+\begin{align} 
+\nonumber \ket{\Psi} &= \ket{+}\ket{\psi_s}\\
+\nonumber &= \sum_\lambda \frac{a_\lambda}{\sqrt{2}}\left(\ket{0}+\ket{1}\right)\ket{\lambda}
+\end{align}
+\item Perform controlled $e^{i\mathcal{H}t}$ gate
+\begin{equation} \nonumber
+\ket{\Psi}\rightarrow \sum_{\lambda} \frac{a_{\lambda}}{\sqrt{2}} \left(\ket{0}+e^{iE_\lambda t}\ket{1}\right)\ket{{\lambda}}
+\end{equation}
+\item Make measurements in $X$ and $Y$ bases and compute
+\begin{equation}\nonumber
+\braket{\Psi|X|\Psi}+i\braket{\Psi|Y|\Psi} = \sum_{\lambda}|a_\lambda|^2 e^{iE_{\lambda}t}
+\end{equation}
+\item Do this for several values of $t$ and create a system of equations for $E$'s and $a$'s
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Verified Quantum Phase Estimation\footfullcite{obrien_error_2021}}
+\begin{itemize}[<+->]
+\item 
+\end{itemize} 
+\end{frame}
 
 \begin{frame}
 	\frametitle{Qubitization and Block Encoding \footfullcite{low_hamiltonian_2019}}
