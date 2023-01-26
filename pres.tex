@@ -173,11 +173,19 @@ where $\tau$ is chosen to scale $\mathcal{H}$ so that $x\in (-\frac{\pi}{3},\fra
 \begin{equation}\nonumber
 \tilde{C}(x) = \sum_{|j|\leq d}\hat{F}_j e^{ijx}\braket{\phi_0|e^{-ij\tau \mathcal{H}}|\phi_0}
 \end{equation}
+\item Similar circuits to the previous section can measure $\braket{\phi_0|e^{-ij\tau\mathcal{H}}|\phi_0}$
+\item $\hat{F}$'s are just very ugly scalars:
+\begin{equation}
+\hat{F}_k = \hat{H}_k \int_{-\pi}^{\pi}\left(\frac{T_d(1+2\frac{\cos(x)-\cos(\delta)}{1+\cos(\delta)})}{\int_{-\pi}^{\pi}T_d(1+2\frac{\cos(x)-\cos(\delta)}{1+\cos(\delta))})dx}\right)e^{-ikx}dx
+\end{equation}
+\item To get the advertised scaling, we can only sample randomly among these terms, but we now have a way to measure ACDF and can therefore do binary search for an approximate $E_0$ 
 \end{itemize}
 \end{frame}
 
+
 \begin{frame}
 \frametitle{Quantum Eigenvalue Transformation of Unitary Matrices\footfullcite{dong_ground-state_2022}}
+
 \end{frame}
 
 \begin{frame}
