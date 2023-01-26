@@ -145,7 +145,35 @@ g(t) = \sum_{\lambda}|a_\lambda|^2 e^{iE_\lambda t}
 \end{frame}
 
 \begin{frame}
-\frametitle{Lin Lin Paper\footfullcite{lin_heisenberg-limited_2022}}
+\frametitle{Approximate Cumulative Distribution Function Approach \footfullcite{lin_heisenberg-limited_2022}}
+\begin{itemize}[<+->]
+\item One big feature of QPE is that it achieves the ``Heisenberg limit'' where the total evolution time scales $\mathcal{O}\left(\epsilon^{-1}\text{poly}(p_0^{-1})\right)$
+\item In addition, it would be nice to have an algorithm that needs $\leq 1$ ancilla qubits, and a maximum evolution time that scales as $\mathcal{O}\left(\epsilon^{-1}\text{polylog}(\epsilon^{-1}\braket{\phi_0|\Psi_0}^{-1})\right)$
+\item The authors of this paper give an algorithm to find $E_0$ that obeys these constraints
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cumulative Distribution Function}
+\begin{itemize}[<+->]
+\item Imagine we can construct a distribution based on the eigenvalues of $\tau\mathcal{H}$
+\begin{equation}\nonumber
+C(x) = \sum_{k:\lambda_k<x}\braket{\phi_0|\Psi_k}
+\end{equation}
+where $\tau$ is chosen to scale $\mathcal{H}$ so that $x\in (-\frac{\pi}{3},\frac{\pi}{3})$
+\item All we have to do is use bisection to determine where C(x) jumps from 0 to $\braket{\phi_0|\Psi_0}$ and we know the ground-state energy!
+\item Unfortunately, C(x) is not a continuous function, so we have to approximate it
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Approximate CDF}
+\begin{itemize}[<+->]
+\item Where it comes from is ugly, but ACDF is
+\begin{equation}\nonumber
+\tilde{C}(x) = \sum_{|j|\leq d}\hat{F}_j e^{ijx}\braket{\phi_0|e^{-ij\tau \mathcal{H}}|\phi_0}
+\end{equation}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
